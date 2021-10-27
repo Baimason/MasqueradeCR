@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
     {
         inputActions = new ControlMaps();
         inputActions.Enable();
-        
+
         inputActions.Player.Jump.performed += PerformJump;
         inputActions.Player.Special.performed += PerformSpecial;
     }

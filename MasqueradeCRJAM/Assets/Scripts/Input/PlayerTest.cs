@@ -6,6 +6,7 @@ public class PlayerTest : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private new Renderer renderer;
+    [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Color baseColor = Color.white;
     [SerializeField] private Color jumpColor;
     [SerializeField] private Color specialColor;
@@ -53,8 +54,8 @@ public class PlayerTest : MonoBehaviour
         renderer.SetPropertyBlock(mpb);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        transform.position += (Vector3)playerInput.MovementVector;
+        transform.position += (Vector3)playerInput.MovementVector * Time.fixedDeltaTime * moveSpeed;
     }
 }
