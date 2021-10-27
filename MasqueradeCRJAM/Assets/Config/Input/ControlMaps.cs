@@ -230,6 +230,17 @@ public class @ControlMaps : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""97ab1e55-443b-4091-8095-a3cebca3a013"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1fb0caa5-0d9b-4c1a-a41f-1964f5e6c3dd"",
                     ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",

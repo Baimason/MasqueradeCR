@@ -5,33 +5,33 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Vector2 MovementVector;
-    public UnityAction jumpAction;
-    public UnityAction specialAction;
+    //public Vector2 MovementVector;
+    //public UnityAction jumpAction;
+    //public UnityAction specialAction;
 
-    private ControlMaps inputActions;
+    //private ControlMaps inputActions;
 
-    void Start()
-    {
-        inputActions = new ControlMaps();
-        inputActions.Enable();
+    //void Start()
+    //{
+    //    inputActions = new ControlMaps();
+    //    inputActions.Enable();
 
-        inputActions.Player.Jump.performed += PerformJump;
-        inputActions.Player.Special.performed += PerformSpecial;
-    }
+    //    inputActions.Player.Jump.performed += PerformJump;
+    //    inputActions.Player.Special.performed += PerformSpecial;
+    //}
 
-    private void PerformSpecial(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        specialAction.Invoke();
-    }
+    //private void PerformSpecial(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    //{
+    //    specialAction.Invoke();
+    //}
 
-    private void PerformJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        jumpAction.Invoke();
-    }
+    //private void PerformJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    //{
+    //    jumpAction.Invoke();
+    //}
 
-    void Update()
-    {
-        MovementVector = inputActions.Player.Movement.ReadValue<Vector2>();
-    }
+    //void Update()
+    //{
+    //    MovementVector = inputActions.Player.Movement.ReadValue<Vector2>();
+    //}
 }

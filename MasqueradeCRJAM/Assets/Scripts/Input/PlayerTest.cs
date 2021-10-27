@@ -6,7 +6,7 @@ public class PlayerTest : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private new Renderer renderer;
-    [SerializeField] private float moveSpeed = 5;
+    //[SerializeField] private float moveSpeed = 5;
     [SerializeField] private Color baseColor = Color.white;
     [SerializeField] private Color jumpColor;
     [SerializeField] private Color specialColor;
@@ -17,8 +17,8 @@ public class PlayerTest : MonoBehaviour
     void Start()
     {
         mpb = new MaterialPropertyBlock();
-        playerInput.jumpAction += OnJump;
-        playerInput.specialAction += OnSpecial;
+        //playerInput.jumpAction += OnJump;
+        //playerInput.specialAction += OnSpecial;
         hash_BaseColor = Shader.PropertyToID("_Color");
     }
 
@@ -56,6 +56,6 @@ public class PlayerTest : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += (Vector3)playerInput.MovementVector * Time.fixedDeltaTime * moveSpeed;
+        //transform.position += (Vector3)playerInput.MovementVector * Time.fixedDeltaTime * moveSpeed;
     }
 }
