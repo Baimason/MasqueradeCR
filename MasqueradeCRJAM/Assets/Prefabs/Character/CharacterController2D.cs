@@ -5,7 +5,10 @@ public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;                         	
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f; 
-	[SerializeField] private bool m_AirControl = false;                        
+	[SerializeField] private bool m_AirControl = false;
+	[SerializeField] private float m_slopeCheckDst = 1;
+	[SerializeField] private Vector3 m_slopeCheckOffset;
+	[SerializeField] private float m_slopeCheckMax = 45f;
 	[SerializeField] private LayerMask m_WhatIsGround;                         
 	[SerializeField] private Transform m_GroundCheck;                          
 	[SerializeField] private Transform m_CeilingCheck;                         
@@ -37,8 +40,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public bool getGrounded()
     {
-        Debug.Log("ON Ground: "+ m_Grounded);
-		return m_Grounded;
+        return m_Grounded;
     }
 
 	private void FixedUpdate()
@@ -48,7 +50,7 @@ public class CharacterController2D : MonoBehaviour
         bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, /*k_GroundedRadius,*/ m_WhatIsGround);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
@@ -59,13 +61,19 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 	}
-
-
+	
 	public void Move(float move, /*bool crouch,*/ bool jump)
 	{
 		if (m_Grounded || m_AirControl)
 		{
-            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);		
+            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			var origin = transform.position + m_slopeCheckOffset;
+			var hit = Physics2D.Raycast(origin, targetVelocity.normalized, m_slopeCheckDst, m_WhatIsGround);
+			if (hit)
+            {
+				var angle = Vector2.Angle(hit.point - (Vector2)origin, hit.normal);
+				if (angle > m_slopeCheckMax) targetVelocity = Vector2.zero;
+			}
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);			
 
 			if (move > 0 && !m_FacingRight)
@@ -96,4 +104,11 @@ public class CharacterController2D : MonoBehaviour
 		m_FacingRight = !m_FacingRight;
 		transform.Rotate(0f, 180f, 0f);
 	}
+
+    private void OnDrawGizmosSelected()
+    {
+		var chkPos = transform.position + m_slopeCheckOffset;
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(chkPos, chkPos + new Vector3(m_slopeCheckDst, 0));
+    }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2431009616268238361}
   - component: {fileID: 2431009616268238366}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,8 +71,8 @@ GameObject:
   - component: {fileID: 2431009616578855061}
   - component: {fileID: 2431009616578855060}
   - component: {fileID: 2431009616578855066}
-  m_Layer: 7
-  m_Name: Player 1
+  m_Layer: 6
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,6 +109,9 @@ MonoBehaviour:
   m_JumpForce: 400
   m_MovementSmoothing: 0.05
   m_AirControl: 0
+  m_slopeCheckDst: 0.66
+  m_slopeCheckOffset: {x: 0, y: -0.55, z: 0}
+  m_slopeCheckMax: 135
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 128
@@ -116,9 +119,6 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 2431009616608210848}
   m_Grounded: 0
   OnLandEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2431009616578855062
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2431009616578855059}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c2503a6098ceeee40b463b4aea2dd8ae, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -193,7 +193,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 2431009616578855059}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bd4783d777611034b93efc0a6d1d63a4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2431009616608210848}
   - component: {fileID: 2431009616608210849}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: CellingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4685206703236713591}
   - component: {fileID: 3005659850852380203}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Character_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5226319865922112443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0605, y: 0.0173, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0173, z: 0}
   m_LocalScale: {x: 0.2580297, y: 0.22221825, z: 1}
   m_Children: []
   m_Father: {fileID: 2431009616578855057}
@@ -329,7 +329,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8a095b65243dd734f89a7bdc7949331e, type: 3}
-  m_Color: {r: 0.21226418, g: 0.26562124, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.53735894, b: 0.051886797, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -348,7 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7254281241069209568}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Colliders_Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
