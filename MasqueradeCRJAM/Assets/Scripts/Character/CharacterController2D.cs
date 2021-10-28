@@ -18,6 +18,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_Grounded;            
 	const float k_CeilingRadius = .2f; 
 	private Rigidbody2D m_Rigidbody2D;
+	private ModifierContainer m_modifiers;
 	private bool m_FacingRight = true; 
 	private Vector3 m_Velocity = Vector3.zero;
 
@@ -29,10 +30,10 @@ public class CharacterController2D : MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
-
     private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		m_modifiers = GetComponent<ModifierContainer>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -90,19 +91,19 @@ public class CharacterController2D : MonoBehaviour
 		if (m_Grounded && jump)
 		{
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));
 		}
 	}
 
 	public void MoveUpwards()
 	{
-		m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));		
+		m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));		
 	}
 
 	private void Flip()
 	{
 		m_FacingRight = !m_FacingRight;
-		transform.Rotate(0f, 180f, 0f);
+		transform.localScale = new Vector3(m_FacingRight ? 1 : -1, 1, 1);
 	}
 
     private void OnDrawGizmosSelected()
@@ -111,4 +112,20 @@ public class CharacterController2D : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine(chkPos, chkPos + new Vector3(m_slopeCheckDst, 0));
     }
+
+	float JumpForce { 
+		get
+        {
+			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(ModifierContainer.EMod.JUMPFORCE);
+			return m_JumpForce * v;
+		} 
+	}
+	int MaxJumps { 
+		get
+        {
+			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(ModifierContainer.EMod.MAXJUMPS);
+			return Mathf.CeilToInt(v);
+		}
+	}
+
 }

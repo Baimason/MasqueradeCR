@@ -5,22 +5,49 @@ using UnityEngine;
 
 public class Mask : MonoBehaviour
 {
-    
+    [SerializeField] ModifierContainer.Modifier[] modifiers;
+
+    ModifierContainer parentModifiers;
 
     public void Place(MaskSlot slot)
     {
-        transform.SetParent(slot.transform);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
+        AddModifiers(slot);
+        SetParent(slot);
         SetPhysics(false);
     }
 
     internal void Drop()
     {
+        RemoveModifiers();
+        Unparent();
+        SetPhysics(true);
+    }
+
+    private void SetParent(MaskSlot slot)
+    {
+        transform.SetParent(slot.transform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+    }
+
+    private void Unparent()
+    {
         transform.SetParent(null);
         transform.localScale = Vector3.one;
-        SetPhysics(true);
+    }
+
+    private void AddModifiers(MaskSlot slot)
+    {
+        parentModifiers = slot.GetComponentInParent<ModifierContainer>();
+        parentModifiers.AddModifiers(modifiers);
+    }
+
+    private void RemoveModifiers()
+    {
+        if (parentModifiers == null) return;
+        parentModifiers.RemoveModifiers(modifiers);
+        parentModifiers = null;
     }
 
     void SetPhysics(bool v)

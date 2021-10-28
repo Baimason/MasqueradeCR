@@ -15,11 +15,14 @@ public class PlayerMovement : MonoBehaviour
 	public bool movementBlocked = false;
 	public ControlMaps inputs;
 
-    private void Awake()
+	private ModifierContainer m_modifiers;
+
+	private void Awake()
     {
 		inputs = new ControlMaps();
-        inputs.Player.Jump.performed += _ => Jump(); 
-    }
+        inputs.Player.Jump.performed += _ => Jump();
+		m_modifiers = GetComponent<ModifierContainer>();
+	}
 
 	void Jump()
     {
@@ -34,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
 	{
         if (!movementBlocked)
         {
-            horizontalMove = inputs.Player.Movement.ReadValue<Vector2>().x * runSpeed; 
-			//Debug.Log(horizontalMove);
+			var run = runSpeed * SpeedMult;
+			horizontalMove = inputs.Player.Movement.ReadValue<Vector2>().x * run;
 		}
 	}
 
@@ -57,5 +60,15 @@ public class PlayerMovement : MonoBehaviour
 	private void OnDisable()
 	{
 		inputs.Disable();
+	}
+
+
+	float SpeedMult
+	{
+		get
+		{
+			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(ModifierContainer.EMod.SPEED);
+			return v;
+		}
 	}
 }
