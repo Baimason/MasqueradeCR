@@ -15,11 +15,15 @@ public class PlayerMovement : MonoBehaviour
 	public bool movementBlocked = false;
 	public ControlMaps inputs;
 
+
+
     private void Awake()
     {
 		inputs = new ControlMaps();
-        inputs.Player.Jump.performed += _ => Jump(); 
+        inputs.Player.Jump.performed += _ => Jump();
     }
+
+
 
 	void Jump()
     {
@@ -29,14 +33,13 @@ public class PlayerMovement : MonoBehaviour
 		}
     }
 
-    // Update is called once per frame
     void Update()
 	{
         if (!movementBlocked)
         {
             horizontalMove = inputs.Player.Movement.ReadValue<Vector2>().x * runSpeed; 
 			//Debug.Log(horizontalMove);
-		}
+		}       
 	}
 
 	void FixedUpdate()
