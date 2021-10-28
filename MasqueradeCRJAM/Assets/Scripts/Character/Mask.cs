@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Mask : MonoBehaviour
 {
     [SerializeField] ModifierContainer.Modifier[] modifiers;
-
+    [SerializeField] UnityEvent<ModifierContainer> onStartSpecial, onUseSpecial, onCancelSpecial;
     ModifierContainer parentModifiers;
 
     public void Place(MaskSlot slot)
@@ -63,5 +64,22 @@ public class Mask : MonoBehaviour
                 rb.angularVelocity = 0;
             }
         }
+    }
+
+    public void ExecuteSpecial(int state)
+    {
+        switch (state)
+        {
+            case 0:
+                onStartSpecial?.Invoke(parentModifiers);
+                break;
+            case 1:
+                onUseSpecial?.Invoke(parentModifiers);
+                break;
+            case 2:
+                onCancelSpecial?.Invoke(parentModifiers);
+                break;
+        }
+        
     }
 }

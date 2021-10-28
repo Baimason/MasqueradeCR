@@ -24,4 +24,9 @@ public class MaskSlot : MonoBehaviour
         if (currentMask == null) return;
         currentMask.Drop();
     }
+
+    public void ExecuteSpecial(int state)
+    {
+        if (currentMask != null) currentMask.ExecuteSpecial(state);
+    }
 }

@@ -4,7 +4,8 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;                         	
-	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f; 
+	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
+	[SerializeField] private bool m_JumpAsForce;
 	[SerializeField] private bool m_AirControl = false;
 	[SerializeField] private float m_slopeCheckDst = 1;
 	[SerializeField] private Vector3 m_slopeCheckOffset;
@@ -15,7 +16,8 @@ public class CharacterController2D : MonoBehaviour
 	
 
 	const float k_GroundedRadius = .2f;
-	public bool m_Grounded;            
+	public bool m_Grounded;
+	private int consecutiveJumps;
 	const float k_CeilingRadius = .2f; 
 	private Rigidbody2D m_Rigidbody2D;
 	private ModifierContainer m_modifiers;
@@ -39,15 +41,8 @@ public class CharacterController2D : MonoBehaviour
 			OnLandEvent = new UnityEvent();
 	}
 
-	public bool getGrounded()
-    {
-        return m_Grounded;
-    }
-
 	private void FixedUpdate()
 	{
-        getGrounded();
-
         bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
@@ -87,11 +82,19 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
-
-		if (m_Grounded && jump)
+		bool canJump = (m_Grounded || consecutiveJumps < MaxJumps);
+		if (canJump && jump)
 		{
+			if (m_Grounded) consecutiveJumps = 0;
+			consecutiveJumps++;
+			if (m_JumpAsForce) m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));
+			else
+            {
+				var vel = m_Rigidbody2D.velocity;
+				vel.y = JumpForce;
+				m_Rigidbody2D.velocity = vel;
+            }
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));
 		}
 	}
 

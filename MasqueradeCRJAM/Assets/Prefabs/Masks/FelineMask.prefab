@@ -126,6 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488202e0a87cf4944ab08c2f2114d0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers:
-  - kind: 2
-    value: 4
+  modifiers: []
+  onStartSpecial:
+    m_PersistentCalls:
+      m_Calls: []
+  onUseSpecial:
+    m_PersistentCalls:
+      m_Calls: []
+  onCancelSpecial:
+    m_PersistentCalls:
+      m_Calls: []

@@ -13,6 +13,7 @@ public class ModifierContainer : MonoBehaviour
     public class Modifier
     {
         public EMod kind;
+        public bool constant;
         public float value = 1;
     }
 
@@ -33,7 +34,11 @@ public class ModifierContainer : MonoBehaviour
         float r = 1;
         foreach (var m in modifiers)
         {
-            if (m.kind == type) r *= m.value;
+            if (m.kind == type)
+            {
+                if (m.constant) r += m.value;
+                else r *= m.value;
+            }
         }
         return r;
     }

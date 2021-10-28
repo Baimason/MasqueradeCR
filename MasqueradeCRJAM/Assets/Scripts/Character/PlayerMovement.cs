@@ -15,12 +15,23 @@ public class PlayerMovement : MonoBehaviour
 	public bool movementBlocked = false;
 	public ControlMaps inputs;
 	private ModifierContainer m_modifiers;
+	private MaskSlot m_MaskSlot;
 
 	private void Awake()
 	{
 		inputs = new ControlMaps();
 		inputs.Player.Jump.performed += _ => Jump();
+		inputs.Player.Special.started += _ => Special(0);
+		inputs.Player.Special.performed += _ => Special(1);
+		inputs.Player.Special.canceled += _ => Special(2);
 		m_modifiers = GetComponent<ModifierContainer>();
+		m_MaskSlot = GetComponentInChildren<MaskSlot>();
+	}
+
+	void Special(int state)
+    {
+		if (m_MaskSlot != null) m_MaskSlot.ExecuteSpecial(state);
+
 	}
 
 	void Jump()
@@ -59,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		inputs.Disable();
 	}
-
 
 	float SpeedMult
 	{
