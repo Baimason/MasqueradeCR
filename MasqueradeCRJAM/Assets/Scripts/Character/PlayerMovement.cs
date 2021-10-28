@@ -14,13 +14,12 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool movementBlocked = false;
 	public ControlMaps inputs;
-
 	private ModifierContainer m_modifiers;
 
 	private void Awake()
-    {
+	{
 		inputs = new ControlMaps();
-        inputs.Player.Jump.performed += _ => Jump();
+		inputs.Player.Jump.performed += _ => Jump();
 		m_modifiers = GetComponent<ModifierContainer>();
 	}
 
@@ -32,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
 		}
     }
 
-    // Update is called once per frame
     void Update()
 	{
         if (!movementBlocked)
