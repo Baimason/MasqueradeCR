@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class MaskSlot : MonoBehaviour
 {
-    [SerializeField] private Mask currentMask;
+    [SerializeField] private MaskObject currentMask;
 
     private void Start()
     {
         if (currentMask != null) Place(currentMask);
     }
 
-    public void Place(Mask newMask)
+    public void Place(MaskObject newMask)
     {
         Drop();
         currentMask = newMask;

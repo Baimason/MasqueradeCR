@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Mask : MonoBehaviour
+public class MaskObject : MonoBehaviour
 {
-    [SerializeField] ModifierContainer.Modifier[] modifiers;
-    [SerializeField] UnityEvent<ModifierContainer> onStartSpecial, onUseSpecial, onCancelSpecial;
-    ModifierContainer parentModifiers;
+    [SerializeField] Entity.Modifier[] modifiers;
+    [SerializeField] UnityEvent<Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
+    Entity parentModifiers;
 
     public void Place(MaskSlot slot)
     {
@@ -40,7 +40,7 @@ public class Mask : MonoBehaviour
 
     private void AddModifiers(MaskSlot slot)
     {
-        parentModifiers = slot.GetComponentInParent<ModifierContainer>();
+        parentModifiers = slot.GetComponentInParent<Entity>();
         parentModifiers.AddModifiers(modifiers);
     }
 

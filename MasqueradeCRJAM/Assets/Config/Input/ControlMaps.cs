@@ -40,7 +40,7 @@ public class @ControlMaps : IInputActionCollection, IDisposable
                     ""id"": ""a8631479-4fed-462c-aa95-41283c432afd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=1)""
                 },
                 {
                     ""name"": ""Start"",

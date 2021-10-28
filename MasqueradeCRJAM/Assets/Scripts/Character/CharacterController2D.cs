@@ -20,7 +20,7 @@ public class CharacterController2D : MonoBehaviour
 	private int consecutiveJumps;
 	const float k_CeilingRadius = .2f; 
 	private Rigidbody2D m_Rigidbody2D;
-	private ModifierContainer m_modifiers;
+	private Entity m_modifiers;
 	private bool m_FacingRight = true; 
 	private Vector3 m_Velocity = Vector3.zero;
 
@@ -35,7 +35,7 @@ public class CharacterController2D : MonoBehaviour
     private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		m_modifiers = GetComponent<ModifierContainer>();
+		m_modifiers = GetComponent<Entity>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -119,14 +119,14 @@ public class CharacterController2D : MonoBehaviour
 	float JumpForce { 
 		get
         {
-			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(ModifierContainer.EMod.JUMPFORCE);
+			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(Entity.EMod.JUMPFORCE);
 			return m_JumpForce * v;
 		} 
 	}
 	int MaxJumps { 
 		get
         {
-			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(ModifierContainer.EMod.MAXJUMPS);
+			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(Entity.EMod.MAXJUMPS);
 			return Mathf.CeilToInt(v);
 		}
 	}
