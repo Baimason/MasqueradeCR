@@ -31,7 +31,6 @@ public class MeleeAttack : MonoBehaviour
             {
                 if (!affectedEntities.Contains(other))
                 {
-                    Debug.Log("Melee attack over " + other.name);
                     effects.Invoke(other, self);
                     if (affectOnceEach) affectedEntities.Add(other);
                 }

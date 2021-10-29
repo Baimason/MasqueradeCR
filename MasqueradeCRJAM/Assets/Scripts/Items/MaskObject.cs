@@ -60,13 +60,14 @@ public class MaskObject : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = !v;
-            
             if (!v)
             {
                 rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0;
             }
         }
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.isTrigger = !v;
     }
 
     public void ExecuteSpecial(int state)

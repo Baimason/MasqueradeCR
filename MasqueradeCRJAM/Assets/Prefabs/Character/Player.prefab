@@ -292,7 +292,7 @@ MonoBehaviour:
   m_JumpForce: 10
   m_MovementSmoothing: 0.05
   m_JumpAsForce: 0
-  m_AirControl: 0
+  m_AirControl: 1
   m_slopeCheckDst: 0.66
   m_slopeCheckOffset: {x: 0, y: -0.55, z: 0}
   m_slopeCheckMax: 135
