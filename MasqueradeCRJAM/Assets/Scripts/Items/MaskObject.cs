@@ -6,9 +6,12 @@ using UnityEngine.Events;
 
 public class MaskObject : MonoBehaviour
 {
-    [SerializeField] Entity.Modifier[] modifiers;
-    [SerializeField] UnityEvent<Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
+    [SerializeField] private Entity.Modifier[] modifiers;
+    [SerializeField] private bool useDefaultSpecial;
+    [SerializeField] private UnityEvent<Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
     Entity parentModifiers;
+
+    public bool UseDefaultSpecial => useDefaultSpecial;
 
     public void Place(MaskSlot slot)
     {
@@ -40,7 +43,7 @@ public class MaskObject : MonoBehaviour
 
     private void AddModifiers(MaskSlot slot)
     {
-        parentModifiers = slot.GetComponentInParent<Entity>();
+        parentModifiers = slot.Entity;
         parentModifiers.AddModifiers(modifiers);
     }
 

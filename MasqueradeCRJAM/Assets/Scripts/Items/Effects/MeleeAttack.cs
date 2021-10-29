@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MeleeAttack : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] bool affectSelf;
     [SerializeField] Vector3 offset;
     [SerializeField] Vector2 bounds;
+    [SerializeField] UnityEvent<Entity> effects;
 
     List<Entity> affectedEntities = new List<Entity>();
 
