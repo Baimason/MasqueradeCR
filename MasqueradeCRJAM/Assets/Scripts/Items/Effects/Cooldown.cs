@@ -7,9 +7,9 @@ public class Cooldown : MonoBehaviour
     [SerializeField] float movementCooldown;
     [SerializeField] float specialCooldown;
 
-    public void Execute(Entity e)
+    public void Execute(Entity other, Entity self)
     {
-        if (movementCooldown > 0) e.SetMovementCooldown(movementCooldown);
-        if (specialCooldown > 0) e.SetSpecialCooldown(specialCooldown);
+        if (movementCooldown > 0) other.SetMovementCooldown(movementCooldown);
+        if (specialCooldown > 0) other.SetSpecialCooldown(specialCooldown);
     }
 }

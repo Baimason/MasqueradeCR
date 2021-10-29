@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9904bedbaadb79d45a88ac2fb9c1c73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Steal: 1
 --- !u!1 &664017480669724508
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ MonoBehaviour:
   affectOnceEach: 1
   affectSelf: 0
   offset: {x: 1, y: 0, z: 0}
-  bounds: {x: 1, y: 1}
+  bounds: {x: 1.5, y: 1.5}
   effects:
     m_PersistentCalls:
       m_Calls:

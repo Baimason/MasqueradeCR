@@ -6,12 +6,12 @@ public class IntAnimation : TriggerAnimation
 {
     protected Entity _curr;
 
-    public override void Set(Entity e)
+    public override void Set(Entity other, Entity self)
     {
-        _curr = e;
+        _curr = other;
     }
 
-    public override void Reset(Entity e)
+    public override void Reset(Entity other, Entity self)
     {
         _curr = null;
     }

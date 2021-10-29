@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-    public void Apply(Entity e)
+    [SerializeField] private bool Steal;
+
+    public void Apply(Entity other, Entity self)
     {
         // If there is a mask, steal mask.
+        if (other.MaskSlot != null && !other.MaskSlot.IsEmpty)
+        {
+            // Drop mask.
+            var m = other.MaskSlot.Drop();
+            // Steal.
+            if (Steal && self != null)
+            {
+                self.MaskSlot.Place(m);
+            }
+        }
         // Else, kill entity.
+        else
+        {
+            other.Kill();
+        }
     }
 }

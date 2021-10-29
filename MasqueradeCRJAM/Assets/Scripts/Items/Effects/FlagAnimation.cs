@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class FlagAnimation : TriggerAnimation
 {
-    public override void Set(Entity e)
+    public override void Set(Entity other, Entity self)
     {
-        e.Anim.SetBool(hash, true);
+        other.Anim.SetBool(hash, true);
     }
 
-    public override void Reset(Entity e)
+    public override void Reset(Entity other, Entity self)
     {
-        e.Anim.SetBool(hash, false);
+        other.Anim.SetBool(hash, false);
     }
 }

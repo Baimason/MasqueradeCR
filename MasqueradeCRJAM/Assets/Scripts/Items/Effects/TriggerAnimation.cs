@@ -12,13 +12,13 @@ public class TriggerAnimation : MonoBehaviour
         hash = Animator.StringToHash(propertyName);
     }
 
-    public virtual void Set(Entity e)
+    public virtual void Set(Entity other, Entity self)
     {
-        e.Anim.SetTrigger(hash);
+        other.Anim.SetTrigger(hash);
     }
 
-    public virtual void Reset(Entity e)
+    public virtual void Reset(Entity other, Entity self)
     {
-        e.Anim.ResetTrigger(hash);
+        other.Anim.ResetTrigger(hash);
     }
 }

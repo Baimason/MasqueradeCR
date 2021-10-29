@@ -8,8 +8,8 @@ public class MaskObject : MonoBehaviour
 {
     [SerializeField] private Entity.Modifier[] modifiers;
     [SerializeField] private bool useDefaultSpecial;
-    [SerializeField] private UnityEvent<Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
-    Entity parentModifiers;
+    [SerializeField] private UnityEvent<Entity, Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
+    Entity entity;
 
     public bool UseDefaultSpecial => useDefaultSpecial;
 
@@ -43,15 +43,15 @@ public class MaskObject : MonoBehaviour
 
     private void AddModifiers(MaskSlot slot)
     {
-        parentModifiers = slot.Entity;
-        parentModifiers.AddModifiers(modifiers);
+        entity = slot.Entity;
+        entity.AddModifiers(modifiers);
     }
 
     private void RemoveModifiers()
     {
-        if (parentModifiers == null) return;
-        parentModifiers.RemoveModifiers(modifiers);
-        parentModifiers = null;
+        if (entity == null) return;
+        entity.RemoveModifiers(modifiers);
+        entity = null;
     }
 
     void SetPhysics(bool v)
@@ -74,13 +74,13 @@ public class MaskObject : MonoBehaviour
         switch (state)
         {
             case 0:
-                onStartSpecial?.Invoke(parentModifiers);
+                onStartSpecial?.Invoke(entity, entity);
                 break;
             case 1:
-                onUseSpecial?.Invoke(parentModifiers);
+                onUseSpecial?.Invoke(entity, entity);
                 break;
             case 2:
-                onCancelSpecial?.Invoke(parentModifiers);
+                onCancelSpecial?.Invoke(entity, entity);
                 break;
         }
         

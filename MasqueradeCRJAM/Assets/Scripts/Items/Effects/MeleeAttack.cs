@@ -9,7 +9,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] bool affectSelf;
     [SerializeField] Vector3 offset;
     [SerializeField] Vector2 bounds;
-    [SerializeField] UnityEvent<Entity> effects;
+    [SerializeField] UnityEvent<Entity,Entity> effects;
 
     List<Entity> affectedEntities = new List<Entity>();
 
@@ -18,7 +18,7 @@ public class MeleeAttack : MonoBehaviour
         affectedEntities.Clear();
     }
 
-    public void Execute(Entity self)
+    public void Execute(Entity other, Entity self)
     {
         var scaledOffset = Vector3.Scale(offset, transform.lossyScale);
         var pos = transform.position + scaledOffset;
@@ -26,12 +26,13 @@ public class MeleeAttack : MonoBehaviour
         var colls = Physics2D.OverlapBoxAll(pos, size, 0);
         foreach (var c in colls)
         {
-            var other = c.GetComponentInParent<Entity>();
+            other = c.GetComponentInParent<Entity>();
             if (other != null && (affectSelf || other != self))
             {
                 if (!affectedEntities.Contains(other))
                 {
-                    // Execute effects.
+                    Debug.Log("Melee attack over " + other.name);
+                    effects.Invoke(other, self);
                     if (affectOnceEach) affectedEntities.Add(other);
                 }
             }

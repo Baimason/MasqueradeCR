@@ -9,9 +9,10 @@ public class MaskSlot : MonoBehaviour
     [SerializeField] private MaskObject currentMask;
     [SerializeField] private Transform positionRef;
 
-    [SerializeField] UnityEvent<Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
+    [SerializeField] UnityEvent<Entity,Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
     Entity entity;
     public Entity Entity => entity;
+    public bool IsEmpty => currentMask == null;
 
     private void Start()
     {
@@ -31,10 +32,13 @@ public class MaskSlot : MonoBehaviour
         newMask.Place(this);
     }
 
-    public void Drop()
+    public MaskObject Drop()
     {
-        if (currentMask == null) return;
+        if (currentMask == null) return null;
         currentMask.Drop();
+        var m = currentMask;
+        currentMask = null;
+        return m;
     }
 
     public void ExecuteSpecial(int state)
@@ -48,13 +52,13 @@ public class MaskSlot : MonoBehaviour
         switch (state)
         {
             case 0:
-                onStartSpecial?.Invoke(entity);
+                onStartSpecial?.Invoke(entity, entity);
                 break;
             case 1:
-                onUseSpecial?.Invoke(entity);
+                onUseSpecial?.Invoke(entity, entity);
                 break;
             case 2:
-                onCancelSpecial?.Invoke(entity);
+                onCancelSpecial?.Invoke(entity, entity);
                 break;
         }
 

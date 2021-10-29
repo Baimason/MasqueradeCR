@@ -19,7 +19,7 @@ public class Entity : MonoBehaviour
         public bool constant;
         public float value = 1;
     }
-    
+
     private List<Modifier> modifiers = new List<Modifier>();
 
     public void AddModifiers(Modifier[] mods)
@@ -84,14 +84,30 @@ public class Entity : MonoBehaviour
     #region Component references
     private Animator animator;
     private CharacterMove characterMove;
+    private MaskSlot maskSlot;
+
+    private int hash_Death;
 
     public Animator Anim => animator;
     public CharacterMove Move => characterMove;
+    public MaskSlot MaskSlot => maskSlot;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         characterMove = GetComponent<CharacterMove>();
+        maskSlot = GetComponentInChildren<MaskSlot>();
+        hash_Death = Animator.StringToHash("Dead");
+    }
+
+    internal void Kill()
+    {
+        if (Move != null)
+        {
+            if (!Move.enabled) return;
+            Move.enabled = false;
+        }
+        if (Anim != null) Anim.SetBool(hash_Death, true);
     }
 
     #endregion

@@ -9,16 +9,16 @@ public class TimedEffect : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private float tick;
 
-    [SerializeField] private UnityEvent<Entity> onStart;
-    [SerializeField] private UnityEvent<Entity> onTick;
-    [SerializeField] private UnityEvent<Entity> onExit;
+    [SerializeField] private UnityEvent<Entity, Entity> onStart;
+    [SerializeField] private UnityEvent<Entity, Entity> onTick;
+    [SerializeField] private UnityEvent<Entity, Entity> onExit;
 
-    public void Execute(Entity self)
+    public void Execute(Entity other, Entity self)
     {
-        StartCoroutine(DoExecute(self));
+        StartCoroutine(DoExecute(other,self));
     }
 
-    IEnumerator DoExecute(Entity self)
+    IEnumerator DoExecute(Entity other, Entity self)
     {
         float timer = delay;
         float tickTimer = 0;
@@ -27,7 +27,7 @@ public class TimedEffect : MonoBehaviour
             timer -= Time.deltaTime;
             yield return null;
         }
-        onStart?.Invoke(self);
+        onStart?.Invoke(other, self);
         timer = duration;
         while (timer > 0)
         {
@@ -35,11 +35,11 @@ public class TimedEffect : MonoBehaviour
             tickTimer -= Time.deltaTime;
             if (tickTimer < 0)
             {
-                onTick?.Invoke(self);
+                onTick?.Invoke(other, self);
                 tickTimer = tick;
             }
             yield return null;
         }
-        onExit?.Invoke(self);
+        onExit?.Invoke(other, self);
     }
 }
