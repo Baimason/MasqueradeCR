@@ -832,6 +832,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 124770906809990838, guid: 0bf96f82baca123468b85603d297bc67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 945754149321544993, guid: 0bf96f82baca123468b85603d297bc67, type: 3}
       propertyPath: m_Name
       value: FelineMask
