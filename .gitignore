@@ -9,6 +9,7 @@
 */[Ll]ogs/
 */[Uu]serSettings/
 */_[Ll]ocal/
+_[Ll]ocal/
 
 # Never ignore Asset meta data
 ![Aa]ssets/**/*.meta
