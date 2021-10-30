@@ -16,7 +16,15 @@ public class PlayerMovement : CharacterMove
 		inputs.Player.Special.started += _ => Special(0);
 		inputs.Player.Special.performed += _ => Special(1);
 		inputs.Player.Special.canceled += _ => Special(2);
+
+		inputs.Player.Start.performed += _ => Pause();
 	}
+
+    private void Pause()
+    {
+		GameSystem.CallPause(inputs);
+    }
+
     protected override bool CanMove()
     {
         return !controlBlocked && base.CanMove();
