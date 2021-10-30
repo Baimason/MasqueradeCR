@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 714609613}
   - component: {fileID: 714609612}
   - component: {fileID: 714609611}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dummy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1955,7 +1955,7 @@ GameObject:
   - component: {fileID: 1975009838}
   - component: {fileID: 1975009837}
   - component: {fileID: 1975009839}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

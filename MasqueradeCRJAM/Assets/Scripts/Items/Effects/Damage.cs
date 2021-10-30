@@ -8,6 +8,13 @@ public class Damage : MonoBehaviour
 
     public void Apply(Entity other, Entity self)
     {
+        // If "attacking" a mask.
+        if (other.Mask != null)
+        {
+            self.MaskSlot.Place(other.Mask);
+            return;
+        }
+
         // If there is a mask, steal mask.
         if (other.MaskSlot != null && !other.MaskSlot.IsEmpty)
         {

@@ -85,18 +85,21 @@ public class Entity : MonoBehaviour
     private Animator animator;
     private CharacterMove characterMove;
     private MaskSlot maskSlot;
+    private MaskObject mask;
 
     private int hash_Death;
 
     public Animator Anim => animator;
     public CharacterMove Move => characterMove;
     public MaskSlot MaskSlot => maskSlot;
+    public MaskObject Mask => mask;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         characterMove = GetComponent<CharacterMove>();
         maskSlot = GetComponentInChildren<MaskSlot>();
+        if (maskSlot == null) mask = GetComponentInChildren<MaskObject>();
         hash_Death = Animator.StringToHash("Dead");
     }
 
