@@ -294,7 +294,12 @@ MonoBehaviour:
   m_JumpAsForce: 0
   m_AirControl: 1
   m_slopeCheckDst: 0.66
-  m_slopeCheckOffset: {x: 0, y: -0.55, z: 0}
+  m_slopeCheckOffset:
+  - {x: 0, y: -0.55, z: 0}
+  - {x: 0, y: 0.65, z: 0}
+  - {x: 0, y: 0.3, z: 0}
+  - {x: 0, y: -0.26, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_slopeCheckMax: 135
   m_WhatIsGround:
     serializedVersion: 2

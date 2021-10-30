@@ -8,25 +8,25 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private bool m_JumpAsForce;
 	[SerializeField] private bool m_AirControl = false;
 	[SerializeField] private float m_slopeCheckDst = 1;
-	[SerializeField] private Vector3 m_slopeCheckOffset;
+	[SerializeField] private Vector3[] m_slopeCheckOffset;
 	[SerializeField] private float m_slopeCheckMax = 45f;
 	[SerializeField] private LayerMask m_WhatIsGround;                         
 	[SerializeField] private Transform m_GroundCheck;                          
 	[SerializeField] private Transform m_CeilingCheck;                         
 	
-
 	const float k_GroundedRadius = .2f;
-	public bool m_Grounded;
+	const float k_CeilingRadius = .2f;
+
+	private bool m_Grounded;
 	private int consecutiveJumps;
-	const float k_CeilingRadius = .2f; 
 	private Rigidbody2D m_Rigidbody2D;
 	private Entity m_modifiers;
-	private bool m_FacingRight = true; 
 	private Vector3 m_Velocity = Vector3.zero;
+	private bool m_FacingRight = true;
+	private bool touchingWall = false;
 
 	[Header("Events")]
 	[Space]
-
 	public UnityEvent OnLandEvent;
 
 	[System.Serializable]
@@ -61,28 +61,23 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, /*bool crouch,*/ bool jump)
 	{
 		if (m_Grounded || m_AirControl)
-		{
+        {
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
-			var origin = transform.position + m_slopeCheckOffset;
-			var hit = Physics2D.Raycast(origin, targetVelocity.normalized, m_slopeCheckDst, m_WhatIsGround);
-			if (hit)
-            {
-				var angle = Vector2.Angle(hit.point - (Vector2)origin, hit.normal);
-				if (angle > m_slopeCheckMax) targetVelocity = Vector2.zero;
-			}
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);			
+			touchingWall = false;
+            targetVelocity = CheckSlopes(targetVelocity);
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-			if (move > 0 && !m_FacingRight)
-			{
-				Flip();
-			}
-            			
-			else if (move < 0 && m_FacingRight)
-			{			
-				Flip();
-			}
-		}
-		bool canJump = (m_Grounded || consecutiveJumps < MaxJumps);
+            if (move > 0 && !m_FacingRight)
+            {
+                Flip();
+            }
+
+            else if (move < 0 && m_FacingRight)
+            {
+                Flip();
+            }
+        }
+        bool canJump = ((m_Grounded || touchingWall) || consecutiveJumps < MaxJumps);
 		if (canJump && jump)
 		{
 			if (m_Grounded) consecutiveJumps = 0;
@@ -98,7 +93,35 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	public void MoveUpwards()
+    private Vector3 CheckSlopes(Vector3 targetVelocity)
+    {
+		bool _canWallClimb = CanWallClib;
+		foreach (var offset in m_slopeCheckOffset)
+        {
+			var origin = transform.position + offset;
+			var hit = Physics2D.Raycast(origin, targetVelocity.normalized, m_slopeCheckDst, m_WhatIsGround);
+			if (hit)
+			{
+				// _canWallClimb
+				if (_canWallClimb)
+				{
+					touchingWall = true;
+				}
+				else
+				{
+					var angle = Vector2.Angle(hit.point - (Vector2)origin, hit.normal);
+					if (angle > m_slopeCheckMax)
+					{
+						targetVelocity = Vector2.zero;
+					}
+				}
+			}
+		}
+
+        return targetVelocity;
+    }
+
+    public void MoveUpwards()
 	{
 		m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));		
 	}
@@ -111,9 +134,12 @@ public class CharacterController2D : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-		var chkPos = transform.position + m_slopeCheckOffset;
 		Gizmos.color = Color.red;
-		Gizmos.DrawLine(chkPos, chkPos + new Vector3(m_slopeCheckDst, 0));
+		foreach (var offset in m_slopeCheckOffset)
+        {
+			var chkPos = transform.position + offset;
+			Gizmos.DrawLine(chkPos, chkPos + new Vector3(m_slopeCheckDst, 0));
+		}
     }
 
 	float JumpForce { 
@@ -130,5 +156,12 @@ public class CharacterController2D : MonoBehaviour
 			return Mathf.CeilToInt(v);
 		}
 	}
-
+	bool CanWallClib
+    {
+		get
+        {
+			return (m_modifiers == null) ? false : m_modifiers.GetModifier(Entity.EMod.WALLCLIMB)>1;
+		}
+    }
+	public bool TouchingWall => touchingWall;
 }

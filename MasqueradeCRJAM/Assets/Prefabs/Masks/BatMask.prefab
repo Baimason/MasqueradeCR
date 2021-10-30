@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8246296689317597683}
   - component: {fileID: -4997722555555252461}
   m_Layer: 0
-  m_Name: FrogMask
+  m_Name: BatMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modifiers:
-  - kind: 1
+  - kind: 3
     constant: 1
     value: 1
   useDefaultSpecial: 1
@@ -264,7 +264,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3987426971311007814, guid: 23fcdff699e3abb448f28c95ef836178, type: 3}
+  m_Sprite: {fileID: 5934214944392493930, guid: 23fcdff699e3abb448f28c95ef836178, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

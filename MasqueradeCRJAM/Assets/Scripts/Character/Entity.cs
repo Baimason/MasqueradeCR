@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour
     #region Modifier support
     public enum EMod
     {
-        JUMPFORCE, MAXJUMPS, SPEED
+        JUMPFORCE, MAXJUMPS, SPEED, WALLCLIMB
     }
 
     [System.Serializable]

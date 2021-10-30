@@ -7,6 +7,7 @@ public class PlayerMovement : CharacterMove
 {
 	public bool controlBlocked = false;
 	public ControlMaps inputs;
+	public bool dropping;
 
     protected override void Awake()
     {
@@ -19,7 +20,18 @@ public class PlayerMovement : CharacterMove
 
 		inputs.Player.Start.performed += _ => Pause();
 	}
+    protected override void Special(int state)
+    {
+		if (!CanUseSpecial()) return;
 
+		if (state != 0 && inputs.Player.Movement.ReadValue<Vector2>().y < -0.5f)
+        {
+			m_MaskSlot.Drop();
+			return;
+        }
+
+		base.Special(state);
+    }
     private void Pause()
     {
 		GameSystem.CallPause(inputs);

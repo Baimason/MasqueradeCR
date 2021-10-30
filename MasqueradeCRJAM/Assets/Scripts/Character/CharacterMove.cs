@@ -13,14 +13,14 @@ public class CharacterMove : MonoBehaviour
 	[HideInInspector] public float HorizontalMove = 0f;
 
 	private bool jump = false;
-	private Entity m_modifiers;
-	private MaskSlot m_MaskSlot;
+	protected Entity m_Entity;
+	protected MaskSlot m_MaskSlot;
 
 	protected virtual void Awake()
 	{
 		movementEnabled = true;
 		specialEnabled = true;
-		m_modifiers = GetComponent<Entity>();
+		m_Entity = GetComponent<Entity>();
 		m_MaskSlot = GetComponentInChildren<MaskSlot>();
 	}
 
@@ -43,7 +43,7 @@ public class CharacterMove : MonoBehaviour
 		return movementEnabled;
 	}
 
-	protected void Special(int state)
+	protected virtual void Special(int state)
 	{
 		if (!CanUseSpecial()) return;
 		if (m_MaskSlot != null) m_MaskSlot.ExecuteSpecial(state);
@@ -59,7 +59,7 @@ public class CharacterMove : MonoBehaviour
 	{
 		get
 		{
-			float v = (m_modifiers == null) ? 1 : m_modifiers.GetModifier(Entity.EMod.SPEED);
+			float v = (m_Entity == null) ? 1 : m_Entity.GetModifier(Entity.EMod.SPEED);
 			return v;
 		}
 	}
