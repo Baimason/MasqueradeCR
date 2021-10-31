@@ -26,6 +26,7 @@ public class PlayerMovement : CharacterMove
 
 		if (state != 0 && inputs.Player.Movement.ReadValue<Vector2>().y < -0.5f)
         {
+			m_MaskSlot.ExecuteSpecial(2);
 			m_MaskSlot.Drop();
 			return;
         }

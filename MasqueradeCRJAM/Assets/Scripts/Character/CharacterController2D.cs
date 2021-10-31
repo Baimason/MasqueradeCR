@@ -12,18 +12,21 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private float m_slopeCheckMax = 45f;
 	[SerializeField] private LayerMask m_WhatIsGround;                         
 	[SerializeField] private Transform m_GroundCheck;                          
-	[SerializeField] private Transform m_CeilingCheck;                         
+	[SerializeField] private Transform m_CeilingCheck;      
 	
 	const float k_GroundedRadius = .2f;
 	const float k_CeilingRadius = .2f;
 
 	private bool m_Grounded;
 	private int consecutiveJumps;
+	private Animator m_Animator;
 	private Rigidbody2D m_Rigidbody2D;
 	private Entity m_modifiers;
 	private Vector3 m_Velocity = Vector3.zero;
 	private bool m_FacingRight = true;
 	private bool touchingWall = false;
+	private bool lastMove;
+	private int hashF_MovementValue;
 
 	[Header("Events")]
 	[Space]
@@ -34,6 +37,8 @@ public class CharacterController2D : MonoBehaviour
 
     private void Awake()
 	{
+		hashF_MovementValue = Animator.StringToHash("MovementValue");
+		m_Animator = GetComponentInChildren<Animator>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		m_modifiers = GetComponent<Entity>();
 
@@ -56,10 +61,14 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
+
+		float v = m_Grounded ? (lastMove ? 1 : 0) : -1;
+		m_Animator.SetFloat(hashF_MovementValue, v);
 	}
 	
 	public void Move(float move, /*bool crouch,*/ bool jump)
 	{
+		lastMove = false;
 		if (m_Grounded || m_AirControl)
         {
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
@@ -76,6 +85,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 Flip();
             }
+			if (move != 0) lastMove = true;
         }
         bool canJump = ((m_Grounded || touchingWall) || consecutiveJumps < MaxJumps);
 		if (canJump && jump)
