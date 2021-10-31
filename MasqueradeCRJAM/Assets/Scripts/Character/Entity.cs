@@ -82,6 +82,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     #region Component references
+    private Rigidbody2D rb;
     private Animator animator;
     private CharacterMove characterMove;
     private MaskSlot maskSlot;
@@ -89,6 +90,7 @@ public class Entity : MonoBehaviour
 
     private int hash_Death;
 
+    public Rigidbody2D Rigidbody => rb;
     public Animator Anim => animator;
     public CharacterMove Move => characterMove;
     public MaskSlot MaskSlot => maskSlot;
@@ -96,6 +98,7 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         characterMove = GetComponent<CharacterMove>();
         maskSlot = GetComponentInChildren<MaskSlot>();

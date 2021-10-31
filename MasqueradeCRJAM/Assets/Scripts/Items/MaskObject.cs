@@ -11,6 +11,7 @@ public class MaskObject : MonoBehaviour
     [SerializeField] private UnityEvent<Entity, Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
     Entity entity;
 
+    public Entity CurrEntity => entity;
     public bool UseDefaultSpecial => useDefaultSpecial;
 
     public void Place(MaskSlot slot)
