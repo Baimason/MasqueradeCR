@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5256d073bfc177044b1d36e83fb5f3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLevelName: Level01
+  NextLevelName: Level02
   FadeController: {fileID: 611828772}
 --- !u!61 &7407107061167654341
 BoxCollider2D:
@@ -188,8 +188,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8571831525604070139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0892, y: 3.6245, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.2466, y: 3.824, z: 0}
+  m_LocalScale: {x: 1.4415823, y: 1.4648703, z: 1}
   m_Children: []
   m_Father: {fileID: 3959214496035548633}
   m_RootOrder: 0
