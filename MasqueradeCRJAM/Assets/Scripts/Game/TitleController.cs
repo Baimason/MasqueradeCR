@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour
 {
@@ -55,6 +57,8 @@ public class TitleController : MonoBehaviour
                 // Go to game.
                 titleAnimator.SetTrigger("StartGame");
                 waitTimer = Time.unscaledTime + waitForStart + 1f;
+                StartCoroutine(StartGame());
+                inputs.Disable();
             }
             else
             {
@@ -63,6 +67,17 @@ public class TitleController : MonoBehaviour
                 creditsScreen.SetActive(false);
             }
         }
+    }
+
+    private IEnumerator StartGame()
+    {
+        float wait = waitForStart;
+        while (wait > 0)
+        {
+            wait -= Time.unscaledDeltaTime;
+            yield return null;
+        }
+        SceneManager.LoadScene(1);
     }
 
     private void OnCancel(UnityEngine.InputSystem.InputAction.CallbackContext obj)
