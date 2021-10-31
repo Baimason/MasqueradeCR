@@ -192,7 +192,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player-idle-4 1
+  m_Name: enemigo_anim
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: caminar

@@ -1895,6 +1895,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6896030080188658856, guid: 9c2d81129cadfc54fbaca25685cebedf, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6896030080188658857, guid: 9c2d81129cadfc54fbaca25685cebedf, type: 3}
       propertyPath: m_Name
       value: enemigo

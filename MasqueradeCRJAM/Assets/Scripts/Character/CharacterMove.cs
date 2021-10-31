@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterMove : MonoBehaviour
 {
-	public CharacterController2D controller;
-
+	protected CharacterController2D controller;
+	[SerializeField] private UnityEvent onDeath;
 	public float runSpeed = 40f;
 
 	[HideInInspector] public bool movementEnabled;
 	[HideInInspector] public bool specialEnabled;
 	[HideInInspector] public float HorizontalMove = 0f;
 
-	private bool jump = false;
+	protected bool jump = false;
 	protected Entity m_Entity;
 	protected MaskSlot m_MaskSlot;
 
@@ -20,6 +22,7 @@ public class CharacterMove : MonoBehaviour
 	{
 		movementEnabled = true;
 		specialEnabled = true;
+		controller = GetComponent<CharacterController2D>();
 		m_Entity = GetComponent<Entity>();
 		m_MaskSlot = GetComponentInChildren<MaskSlot>();
 	}
@@ -62,5 +65,11 @@ public class CharacterMove : MonoBehaviour
 			float v = (m_Entity == null) ? 1 : m_Entity.GetModifier(Entity.EMod.SPEED);
 			return v;
 		}
+	}
+
+    public virtual void OnDeath()
+    {
+		onDeath?.Invoke();
+
 	}
 }

@@ -111,6 +111,7 @@ public class Entity : MonoBehaviour
         if (Move != null)
         {
             if (!Move.enabled) return;
+            Move.OnDeath();
             Move.enabled = false;
         }
         if (Anim != null) Anim.SetBool(hash_Death, true);
