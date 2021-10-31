@@ -10,7 +10,8 @@ public class Door_Exit_Manager : MonoBehaviour
     public string NextLevelName; 
     private Scene DoorLevel;
     private PlayerMovement player;
-    public GameObject TutorialArrow;
+    //public GameObject TutorialArrow;
+    public FadeController FadeController;
 
     public ControlMaps inputs;
     private bool IsCollidingPlayer = false;
@@ -38,7 +39,14 @@ public class Door_Exit_Manager : MonoBehaviour
 
     public void ShowTutorial(bool show)
     {
-        TutorialArrow.SetActive(show);        
+        //TutorialArrow.SetActive(show); 
+        if (show)
+        {
+            FadeController.startFadingIn();
+        }
+        else {
+            FadeController.startFadingOut();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,8 +72,6 @@ public class Door_Exit_Manager : MonoBehaviour
             if (IsCollidingPlayer)
             {
                 ShowTutorial(true);
-                //Aqui se deberia llamar una animacion de un tutorial ingame
-                //Debug.Log("Jugador sobre la puerta");
                 var keyUp = player.inputs.Player.Movement.ReadValue<Vector2>().y > 0;
                 if (keyUp)
                 {

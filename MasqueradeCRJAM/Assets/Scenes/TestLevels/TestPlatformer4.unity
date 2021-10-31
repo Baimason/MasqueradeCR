@@ -790,17 +790,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2181533237834990829, guid: a325a99d388c2c14ba467041f8839bae, type: 3}
-      propertyPath: NextLevelName
-      value: TestPlatformer3
-      objectReference: {fileID: 0}
     - target: {fileID: 3959214496035548633, guid: a325a99d388c2c14ba467041f8839bae, type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3959214496035548633, guid: a325a99d388c2c14ba467041f8839bae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.46
+      value: -11.82
       objectReference: {fileID: 0}
     - target: {fileID: 3959214496035548633, guid: a325a99d388c2c14ba467041f8839bae, type: 3}
       propertyPath: m_LocalPosition.y
