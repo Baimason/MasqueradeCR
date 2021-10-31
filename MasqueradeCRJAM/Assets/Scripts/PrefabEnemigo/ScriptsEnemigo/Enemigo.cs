@@ -146,7 +146,6 @@ public class Enemigo : CharacterMove
         rango.SetActive(false);
         Hit.SetActive(false);
         animacion.speed = 0;
-        Debug.Log(name + "dead");
 
         base.OnDeath();
     }
