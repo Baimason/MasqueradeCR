@@ -11,6 +11,7 @@ public class Damage : MonoBehaviour
         // If "attacking" a mask.
         if (other.Mask != null)
         {
+            other.Mask.GetMask();
             self.MaskSlot.Place(other.Mask);
             return;
         }
@@ -23,6 +24,7 @@ public class Damage : MonoBehaviour
             // Steal.
             if (Steal && self != null)
             {
+                m.GetMask();
                 self.MaskSlot.Place(m);
             }
         }

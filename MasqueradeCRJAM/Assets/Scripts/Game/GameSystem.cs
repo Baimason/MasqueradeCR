@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,27 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    public static void CallNewMask(MaskObject.MaskData data)
+    {
+        Instance.CheckIfNewMask(data);
+    }
+
+    private static List<int> maskIds = new List<int>();
+
+    public static void ResetState()
+    {
+        maskIds.Clear();
+    }
+
+    private void CheckIfNewMask(MaskObject.MaskData data)
+    {
+        if (!maskIds.Contains(data.id))
+        {
+            maskIds.Add(data.id);
+            newMask.Set(data);
+        }
+    }
+
     public static void CallPause(ControlMaps inputs)
     {
         Instance.callerInputs = inputs;
@@ -29,6 +51,7 @@ public class GameSystem : MonoBehaviour
     }
 
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private NewMaskController newMask;
     private bool pauseState;
     private ControlMaps callerInputs;
 

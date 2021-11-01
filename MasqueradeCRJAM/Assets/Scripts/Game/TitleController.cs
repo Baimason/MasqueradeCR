@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour
 {
+    const float MUSIC_VOLUME = 0.2f;
+
+    public static AudioSource LevelMusicInstance;
+
     [SerializeField] private Canvas introCanvas;
     [SerializeField] private Canvas mainCanvas;
     [SerializeField] private GameObject titleScreen;
@@ -14,11 +18,16 @@ public class TitleController : MonoBehaviour
     [SerializeField] private float waitForStart = 5f;
 
     [SerializeField] private Animator titleAnimator;
+    [SerializeField] AudioClip levelMusic;
+    [SerializeField] AudioSource titleMusic;
     ControlMaps inputs;
     float waitTimer;
 
     void Awake()
     {
+        GameSystem.ResetState();
+        if (LevelMusicInstance != null) Destroy(LevelMusicInstance.gameObject);
+        titleMusic.volume = MUSIC_VOLUME;
         inputs = new ControlMaps();
         inputs.Enable();
         inputs.Player.Jump.performed += OnAccept;
@@ -75,8 +84,18 @@ public class TitleController : MonoBehaviour
         while (wait > 0)
         {
             wait -= Time.unscaledDeltaTime;
+            titleMusic.volume -= Time.unscaledDeltaTime;
             yield return null;
         }
+
+        LevelMusicInstance = new GameObject("Music").AddComponent<AudioSource>();
+        LevelMusicInstance.volume = MUSIC_VOLUME;
+        LevelMusicInstance.clip = levelMusic;
+        LevelMusicInstance.loop = true;
+        LevelMusicInstance.spatialBlend = 0;
+        LevelMusicInstance.Play();
+        DontDestroyOnLoad(LevelMusicInstance.gameObject);
+
         SceneManager.LoadScene(1);
     }
 

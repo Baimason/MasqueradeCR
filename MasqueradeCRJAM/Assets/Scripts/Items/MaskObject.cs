@@ -6,19 +6,43 @@ using UnityEngine.Events;
 
 public class MaskObject : MonoBehaviour
 {
+    [System.Serializable]
+    public struct MaskData
+    {
+        public int id;
+        public string name;
+        public string desc;
+        public Sprite image;
+    }
+
     [SerializeField] private Entity.Modifier[] modifiers;
     [SerializeField] private bool useDefaultSpecial;
     [SerializeField] private UnityEvent<Entity, Entity> onStartSpecial, onUseSpecial, onCancelSpecial;
+    [SerializeField] private MaskData maskData;
+    [SerializeField] AudioClip onPutSound;
     Entity entity;
+    Entity self;
 
     public Entity CurrEntity => entity;
     public bool UseDefaultSpecial => useDefaultSpecial;
+
+    private void Awake()
+    {
+        self = GetComponent<Entity>();
+    }
+
+    public void GetMask()
+    {
+        if (onPutSound != null) AudioSource.PlayClipAtPoint(onPutSound, transform.position);
+        GameSystem.CallNewMask(maskData);
+    }
 
     public void Place(MaskSlot slot)
     {
         AddModifiers(slot);
         SetParent(slot);
         SetPhysics(false);
+        self.enabled = false;
     }
 
     internal void Drop()
@@ -26,6 +50,7 @@ public class MaskObject : MonoBehaviour
         RemoveModifiers();
         Unparent();
         SetPhysics(true);
+        self.enabled = true;
     }
 
     private void SetParent(MaskSlot slot)

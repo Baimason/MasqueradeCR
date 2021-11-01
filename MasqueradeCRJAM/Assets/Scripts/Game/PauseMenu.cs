@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
         if (holdTimer + holdForExitCooldown < Time.unscaledTime)
         {
             // Exit game.
-            Debug.Log("Exit game");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 

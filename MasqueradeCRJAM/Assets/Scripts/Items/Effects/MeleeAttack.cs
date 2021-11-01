@@ -22,13 +22,17 @@ public class MeleeAttack : MonoBehaviour
     {
         var scaledOffset = Vector3.Scale(offset, transform.lossyScale);
         var pos = transform.position + scaledOffset;
-        var size = Vector3.Scale(bounds, transform.lossyScale);
+        var size = bounds; // Vector3.Scale(bounds, transform.lossyScale);
         var colls = Physics2D.OverlapBoxAll(pos, size, 0);
         foreach (var c in colls)
         {
             other = c.GetComponentInParent<Entity>();
-            if (other != null && (affectSelf || other != self))
+
+            if (other != null && other.enabled)
             {
+                bool affect = (affectSelf || other != self);
+                if (affect == false) continue;
+
                 if (!affectedEntities.Contains(other))
                 {
                     effects.Invoke(other, self);

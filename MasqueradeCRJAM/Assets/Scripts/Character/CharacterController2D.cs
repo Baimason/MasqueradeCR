@@ -12,7 +12,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private float m_slopeCheckMax = 45f;
 	[SerializeField] private LayerMask m_WhatIsGround;                         
 	[SerializeField] private Transform m_GroundCheck;                          
-	[SerializeField] private Transform m_CeilingCheck;      
+	[SerializeField] private Transform m_CeilingCheck;
+	[SerializeField] private AudioClip jumpSound;
 	
 	const float k_GroundedRadius = .2f;
 	const float k_CeilingRadius = .2f;
@@ -62,7 +63,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 
-		float v = m_Grounded ? (lastMove ? 1 : 0) : -1;
+		float v = m_Grounded ? (lastMove ? 1 : 0) : touchingWall ? 2 : -1;
 		m_Animator.SetFloat(hashF_MovementValue, v);
 	}
 	
@@ -100,6 +101,7 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.velocity = vel;
             }
 			m_Grounded = false;
+			if (jumpSound != null) AudioSource.PlayClipAtPoint(jumpSound, transform.position);
 		}
 	}
 

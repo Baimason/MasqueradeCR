@@ -9,6 +9,14 @@ public class PlayerMovement : CharacterMove
 	public ControlMaps inputs;
 	public bool dropping;
 
+    public static ControlMaps Inputs { 
+		get {
+			var pm = FindObjectOfType<PlayerMovement>();
+			if (pm != null) return pm.inputs;
+			return null;
+		} 
+	}
+
     protected override void Awake()
     {
 		base.Awake();
